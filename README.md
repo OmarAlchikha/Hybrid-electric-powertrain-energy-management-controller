@@ -6,27 +6,22 @@ A system-level Simulink/Simscape model of a **series-hybrid electric powertrain*
 co-simulation used to verify the controller logic and mission feasibility.
 
 This is **Project 5** of my EE hardware portfolio and is designed as the
-*system integration* layer over the other projects:
+*system integration* layer over the other projects — importing Project 3's
+battery-model structure (OCV(SOC) table, ohmic resistance R0) and Project 4's
+drive characteristics (ratings, efficiency) as its two integration points.
 
-| Portfolio project | What it contributes here | Status in this repo |
-|---|---|---|
-| Project 3 — Battery SOC estimator (coulomb counting vs. EKF, 18650 cell) | Cell OCV(SOC) table, ohmic resistance R0, usable capacity; the SOC signal chain | **Stand-in values** (see below) |
-| Project 4 — Three-phase inverter + PMSM FOC (Simscape) | Drive ratings and efficiency; justification for the averaged drive model | **Stand-in values** (see below) |
+**Parameter provenance.** The characterized data from Projects 3 and 4 wasn't
+reachable from the environment this project was built in, so every parameter
+tagged `[STAND-IN]` in `matlab/hybrid_params.m` (mirrored in
+`validation/simulate_hybrid.py`) is a representative public value — 18650
+cell figures of a Samsung INR18650-25R-class power cell from public
+datasheets, a textbook-typical NMC OCV curve, and generic drive/genset
+efficiencies. They're plausible, not measured, and the interfaces are built
+so the real data drops in with no structural changes.
 
-> ## ⚠️ Parameter provenance — stand-ins in use
-> The characterized data from Projects 3 and 4 was **not reachable from the
-> environment this project was built in**, so every parameter tagged
-> `[STAND-IN]` in `matlab/hybrid_params.m` (and mirrored in
-> `validation/simulate_hybrid.py`) is a **representative public value** —
-> 18650 cell figures of a Samsung INR18650-25R-class power cell from public
-> datasheets, a textbook-typical NMC OCV curve, and generic drive/genset
-> efficiencies. They are *plausible*, not *measured*. The interfaces are
-> built so the real data drops in with no structural changes:
-> replace the tagged fields in `hybrid_params.m` and re-run.
->
-> All engineering here is original, public-knowledge work. It contains no
-> material related to any employer or internal program, and does not
-> represent any specific aircraft or product.
+All engineering here is original, public-knowledge work — no material
+related to any employer or internal program, and no specific aircraft or
+product is represented.
 
 ---
 
@@ -387,6 +382,6 @@ or don't.
 
 ---
 
-*Original public-knowledge engineering. Representative parameters flagged
-`[STAND-IN]` pending integration of characterized data from Projects 3
-and 4.*
+*Original public-knowledge engineering, with representative parameters where
+Projects 3/4's characterized data wasn't reachable — see "Parameter
+provenance" above.*
